@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marlon - Web Designer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- Navigation Bar -->
+        <nav>
+            <div class="logo">Marlon</div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                <li><a href="#" class="nav-link" data-page="about">About</a></li>
+                <li><a href="#" class="nav-link" data-page="resume">Resume</a></li>
+                <li><a href="#" class="nav-link" data-page="cv">CV</a></li>
+                <li><a href="#" class="nav-link" data-page="skills">Skills</a></li>
+                <li><a href="#" class="nav-link" data-page="works">Works</a></li>
+                <li><a href="#" class="nav-link" data-page="contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- PAGE: HOME -->
+        <section id="home" class="page-content active-page">
+            <div class="home-text">
+                <h3>Hi,</h3>
+                <h1>I'm <span>Marlon</span><br>Web Designer</h1>
+                <a href="#" class="btn">Contact Me</a>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-behance"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+            </div>
+            <div class="home-image">
+                <div class="blob-shape">
+                    <img src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Marlon">
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE: ABOUT -->
+        <section id="about" class="page-content generic-page">
+            <h2>About Me</h2>
+            <p>I am a creative web designer passionate about building beautiful and functional interfaces. I have 5 years of experience working with brands worldwide.</p>
+            <p>My focus is on user experience and responsive design.</p>
+        </section>
+
+        <!-- PAGE: RESUME -->
+        <section id="resume" class="page-content generic-page">
+            <h2>My Resume</h2>
+            <div class="timeline-item">
+                <h4>Senior Web Designer</h4>
+                <span>2022 - Present | Creative Studio</span>
+                <p>Leading a team of designers and creating web experiences for Fortune 500 clients.</p>
+            </div>
+            <div class="timeline-item">
+                <h4>Junior Designer</h4>
+                <span>2019 - 2022 | Tech Solutions</span>
+                <p>Designed UI components and helped with frontend implementation.</p>
+            </div>
+            <br>
+            <button class="btn">Download Full Resume</button>
+        </section>
+
+        <!-- PAGE: CV -->
+        <section id="cv" class="page-content generic-page">
+            <h2>Curriculum Vitae (CV)</h2>
+            <p><strong>Marlon Web Designer</strong><br>New York, USA | marlon@email.com</p>
+            <br>
+            <h3>Education</h3>
+            <div class="timeline-item">
+                <h4>BA in Graphic Design</h4>
+                <span>2015 - 2019 | University of Design</span>
+            </div>
+            <h3>Certifications</h3>
+            <p>• Google UX Design Certificate</p>
+            <p>• Advanced CSS Animations</p>
+        </section>
+
+        <!-- PAGE: SKILLS -->
+        <section id="skills" class="page-content generic-page">
+            <h2>My Skills</h2>
+            <p>HTML5, CSS3, JavaScript, React, Figma, Adobe XD.</p>
+        </section>
+
+        <!-- PAGE: WORKS -->
+        <section id="works" class="page-content generic-page">
+            <h2>My Works</h2>
+            <p>Here you would see a gallery of your portfolio items.</p>
+        </section>
+
+        <!-- PAGE: CONTACT -->
+        <section id="contact" class="page-content generic-page">
+            <h2>Contact Me</h2>
+            <p>Feel free to reach out via email or phone for project inquiries.</p>
+        </section>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
