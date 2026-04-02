@@ -1,226 +1,285 @@
-:root {
-    --primary-blue: #5271ff;
-    --text-dark: #1e2b3b;
-    --text-light: #57606f;
-    --bg-color: #f3f6ff;
-    --white: #ffffff;
+/* Upload Section Styles */
+.upload-section {
+    background: #f8f9ff;
+    border: 2px dashed #5271ff;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    text-align: center;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+.upload-section h3 {
+    color: var(--primary-blue);
+    margin-bottom: 10px;
+    font-size: 1.3rem;
 }
 
-body {
-    background-color: var(--bg-color);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-}
-
-/* Main Container Card */
-.container {
-    background-color: var(--white);
-    width: 100%;
-    max-width: 1100px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    min-height: 600px;
-    position: relative;
-}
-
-/* Navigation */
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 25px 50px;
-    border-bottom: 1px solid #eee;
-}
-
-.logo {
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--text-dark);
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links li a {
-    text-decoration: none;
+.upload-section p {
     color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-input-label {
+    display: inline-block;
+    padding: 12px 30px;
+    background: var(--primary-blue);
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.file-input-label:hover {
+    background: #3b5bdb;
+}
+
+.upload-status {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+.upload-status.success {
+    background: #d4edda;
+    color: #155724;
+    display: block;
+}
+
+.upload-status.error {
+    background: #f8d7da;
+    color: #721c24;
+    display: block;
+}
+
+/* Resume Builder Form */
+.resume-builder {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+}
+
+.resume-builder h3 {
+    color: var(--primary-blue);
+    margin-bottom: 25px;
+    font-size: 1.4rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-dark);
     font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: 'Poppins', sans-serif;
     font-size: 0.95rem;
     transition: 0.3s;
-    position: relative;
-    cursor: pointer;
 }
 
-.nav-links li a:hover,
-.nav-links li a.active {
-    color: var(--primary-blue);
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(82, 113, 255, 0.1);
 }
 
-/* Underline effect for active link */
-.nav-links li a::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 2px;
-    bottom: -5px;
-    left: 0;
-    background-color: var(--primary-blue);
-    transition: width 0.3s;
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
 }
 
-.nav-links li a.active::after {
-    width: 100%;
+.form-section {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #eee;
 }
 
-/* Page Content Sections */
-.page-content {
-    display: none;
-    padding: 50px;
-    height: calc(100% - 80px);
-    animation: fadeIn 0.5s ease;
-}
-
-/* Only the active page is shown */
-.page-content.active-page {
-    display: flex; 
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* HOME PAGE DESIGN */
-#home.active-page {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.home-text {
-    flex: 1;
-}
-
-.home-text h3 {
-    font-size: 2.5rem;
+.form-section h4 {
     color: var(--text-dark);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.experience-item,
+.education-item {
+    background: #f8f9ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border-left: 3px solid var(--primary-blue);
+}
+
+.date-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin: 10px 0;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    background: white;
+    border: 2px solid var(--primary-blue);
+    color: var(--primary-blue);
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.btn-secondary:hover {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.action-buttons {
+    margin-top: 30px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn-success {
+    background: #28a745;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+/* ATS Resume Template Styles */
+.ats-resume-template {
+    background: white;
+    padding: 40px;
+    font-family: 'Arial', 'Helvetica', sans-serif;
+    color: #000;
+    line-height: 1.4;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.ats-header {
+    text-align: center;
+    border-bottom: 2px solid #000;
+    padding-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.ats-header h1 {
+    font-size: 28px;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.ats-title {
+    font-size: 16px;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.ats-contact {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.ats-section {
+    margin-bottom: 25px;
+}
+
+.ats-section h2 {
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-bottom: 1px solid #000;
+    margin-bottom: 12px;
+    padding-bottom: 5px;
+    letter-spacing: 0.5px;
+}
+
+.ats-section p {
+    font-size: 12px;
+    margin: 0;
+    text-align: justify;
+}
+
+.ats-job {
+    margin-bottom: 15px;
+}
+
+.ats-job-header {
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 5px;
 }
 
-.home-text h1 {
-    font-size: 3.5rem;
-    color: var(--text-dark);
-    line-height: 1.2;
-    margin-bottom: 25px;
+.ats-job-title {
+    font-weight: bold;
+    font-size: 12px;
 }
 
-.home-text span {
-    color: var(--primary-blue);
+.ats-job-company {
+    font-style: italic;
+    font-size: 12px;
 }
 
-.btn {
-    display: inline-block;
-    padding: 12px 35px;
-    background: var(--primary-blue);
-    color: var(--white);
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 1rem;
-    transition: 0.3s;
-    border: none;
-    cursor: pointer;
+.ats-job-date {
+    font-size: 12px;
 }
 
-.btn:hover {
-    background: #3b5bdb;
-    transform: translateY(-2px);
+.ats-job-desc {
+    font-size: 12px;
+    margin: 5px 0 0 0;
+    padding-left: 15px;
 }
 
-.social-icons {
-    margin-top: 40px;
+.ats-job-desc li {
+    margin-bottom: 3px;
 }
 
-.social-icons a {
-    color: var(--text-dark);
-    font-size: 1.2rem;
-    margin-right: 20px;
-    transition: 0.3s;
+.ats-education {
+    margin-bottom: 12px;
 }
 
-.social-icons a:hover {
-    color: var(--primary-blue);
-}
-
-/* The Blob Image Container */
-.home-image {
-    flex: 1;
+.ats-edu-header {
     display: flex;
-    justify-content: center;
-    position: relative;
+    justify-content: space-between;
+    margin-bottom: 3px;
 }
 
-.blob-shape {
-    width: 400px;
-    height: 400px;
-    background-color: var(--primary-blue);
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+.ats-degree {
+    font-weight: bold;
+    font-size: 12px;
 }
 
-.blob-shape img {
-    width: 90%;
-    object-fit: cover;
-    margin-top: 30px;
+.ats-school {
+    font-size: 12px;
 }
 
-/* OTHER PAGES (Resume, CV, etc) */
-.generic-page {
-    flex-direction: column;
-    align-items: flex-start;
+.ats-edu-date {
+    font-size: 12px;
 }
 
-.generic-page h2 {
-    color: var(--primary-blue);
-    margin-bottom: 20px;
-    font-size: 2rem;
-}
-
-.generic-page p {
-    color: var(--text-light);
-    line-height: 1.6;
-    margin-bottom: 15px;
-    max-width: 700px;
-}
-
-/* Simple timeline styling for Resume */
-.timeline-item {
-    border-left: 2px solid var(--primary-blue);
-    padding-left: 20px;
-    margin-bottom: 25px;
-}
-
-.timeline-item h4 { 
-    color: var(--text-dark); 
-}
-
-.timeline-item span { 
-    color: var(--primary-blue); 
-    font-size: 0.85rem; 
+@media print {
+    .ats-resume-template {
+        padding: 20px;
+    }
 }
