@@ -7,15 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <!-- PDF Generation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <!-- PDF Parsing Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 </head>
 <body>
 
     <div class="container">
-        <!-- Navigation Bar -->
         <nav>
             <div class="logo">Marlon</div>
             <ul class="nav-links">
@@ -29,12 +27,12 @@
             </ul>
         </nav>
 
-        <!-- PAGE: HOME -->
+        <!-- HOME PAGE -->
         <section id="home" class="page-content active-page">
             <div class="home-text">
                 <h3>Hi,</h3>
                 <h1>I'm <span>Marlon</span><br>Web Designer</h1>
-                <a href="#" class="btn">Contact Me</a>
+                <a href="#" class="btn" onclick="document.querySelector('[data-page=resume]').click()">Create Resume</a>
                 <div class="social-icons">
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                     <a href="#"><i class="fab fa-behance"></i></a>
@@ -48,37 +46,52 @@
             </div>
         </section>
 
-        <!-- PAGE: ABOUT -->
+        <!-- ABOUT PAGE -->
         <section id="about" class="page-content generic-page">
             <h2>About Me</h2>
-            <p>I am a creative web designer passionate about building beautiful and functional interfaces. I have 5 years of experience working with brands worldwide.</p>
-            <p>My focus is on user experience and responsive design.</p>
+            <p>I am a creative web designer passionate about building beautiful and functional interfaces.</p>
         </section>
 
-        <!-- PAGE: RESUME -->
+        <!-- RESUME PAGE -->
         <section id="resume" class="page-content generic-page">
-            <h2>My Resume</h2>
+            <h2><i class="fas fa-file-alt"></i> ATS Resume Builder</h2>
             
             <!-- Upload Section -->
             <div class="upload-section">
-                <h3><i class="fas fa-upload"></i> Upload Your Resume</h3>
-                <p>Upload your existing resume (PDF or DOCX) to generate an ATS-optimized version</p>
+                <h3><i class="fas fa-cloud-upload-alt"></i> Upload Your Resume</h3>
+                <p>Upload PDF or DOCX to automatically create an ATS-optimized resume</p>
                 <input type="file" id="resumeUpload" accept=".pdf,.docx,.doc" class="file-input">
+                <label for="resumeUpload" class="file-input-label">
+                    <i class="fas fa-file-import"></i> Choose File
+                </label>
                 <div id="resumeUploadStatus" class="upload-status"></div>
             </div>
 
-            <!-- Resume Builder Form -->
-            <div class="resume-builder" id="resumeBuilder">
-                <h3><i class="fas fa-edit"></i> Resume Information</h3>
+            <!-- Manual Entry Toggle -->
+            <div class="toggle-section">
+                <button class="toggle-btn" onclick="toggleResumeEditor()">
+                    <i class="fas fa-edit"></i> <span id="resumeToggleText">Edit Manually</span>
+                </button>
+            </div>
+
+            <!-- Resume Editor Form -->
+            <div class="resume-builder" id="resumeEditor" style="display:none;">
+                <h3><i class="fas fa-user-edit"></i> Resume Information</h3>
                 
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="resName" placeholder="John Doe">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="resName" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Professional Title</label>
+                        <input type="text" id="resTitle" placeholder="Web Designer">
+                    </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Email</label>
+                        <label>Email *</label>
                         <input type="email" id="resEmail" placeholder="john@email.com">
                     </div>
                     <div class="form-group">
@@ -94,119 +107,102 @@
 
                 <div class="form-group">
                     <label>Professional Summary</label>
-                    <textarea id="resSummary" rows="3" placeholder="Brief professional summary..."></textarea>
+                    <textarea id="resSummary" rows="3" placeholder="Results-driven professional with..."></textarea>
                 </div>
 
                 <div class="form-section">
-                    <h4>Work Experience</h4>
-                    <div id="workExperienceContainer">
-                        <div class="experience-item">
-                            <input type="text" class="job-title" placeholder="Job Title">
-                            <input type="text" class="company" placeholder="Company Name">
-                            <div class="date-row">
-                                <input type="text" class="date-start" placeholder="Start Date (e.g., Jan 2020)">
-                                <input type="text" class="date-end" placeholder="End Date (e.g., Present)">
-                            </div>
-                            <textarea class="job-desc" rows="2" placeholder="Job responsibilities and achievements..."></textarea>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-secondary" onclick="addWorkExperience()">+ Add Position</button>
+                    <h4><i class="fas fa-briefcase"></i> Work Experience</h4>
+                    <div id="workExperienceContainer"></div>
+                    <button type="button" class="btn-secondary" onclick="addWorkExperience()">
+                        <i class="fas fa-plus"></i> Add Position
+                    </button>
                 </div>
 
                 <div class="form-section">
-                    <h4>Education</h4>
-                    <div id="educationContainer">
-                        <div class="education-item">
-                            <input type="text" class="degree" placeholder="Degree">
-                            <input type="text" class="school" placeholder="School/University">
-                            <input type="text" class="edu-date" placeholder="Graduation Year">
-                        </div>
-                    </div>
-                    <button type="button" class="btn-secondary" onclick="addEducation()">+ Add Education</button>
+                    <h4><i class="fas fa-graduation-cap"></i> Education</h4>
+                    <div id="educationContainer"></div>
+                    <button type="button" class="btn-secondary" onclick="addEducation()">
+                        <i class="fas fa-plus"></i> Add Education
+                    </button>
                 </div>
 
                 <div class="form-section">
-                    <h4>Skills</h4>
-                    <textarea id="resSkills" rows="2" placeholder="List your skills separated by commas (e.g., JavaScript, HTML, CSS, React)"></textarea>
+                    <h4><i class="fas fa-tools"></i> Skills</h4>
+                    <textarea id="resSkills" rows="2" placeholder="JavaScript, HTML, CSS, React, Node.js, Python"></textarea>
                 </div>
 
                 <div class="form-section">
-                    <h4>Certifications</h4>
-                    <textarea id="resCertifications" rows="2" placeholder="Certifications (optional)"></textarea>
+                    <h4><i class="fas fa-certificate"></i> Certifications</h4>
+                    <textarea id="resCertifications" rows="2" placeholder="AWS Certified Developer, Google UX Design..."></textarea>
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn" onclick="generateATSResume()">
-                        <i class="fas fa-magic"></i> Generate ATS Resume
-                    </button>
-                    <button class="btn btn-success" onclick="downloadATSResume()" id="downloadResumeBtn" style="display:none;">
-                        <i class="fas fa-download"></i> Download PDF
+                    <button class="btn" onclick="saveAndGenerateResume()">
+                        <i class="fas fa-save"></i> Save & Generate ATS Resume
                     </button>
                 </div>
             </div>
 
-            <!-- Hidden ATS Resume Template -->
-            <div id="atsResumeTemplate" class="ats-resume-template" style="display:none;">
-                <div class="ats-header">
-                    <h1 id="atsName">John Doe</h1>
-                    <div class="ats-contact">
-                        <span id="atsEmail">john@email.com</span> | 
-                        <span id="atsPhone">+1 234 567 8900</span> | 
-                        <span id="atsLocation">New York, NY</span>
+            <!-- Resume History -->
+            <div class="history-section" id="resumeHistory">
+                <h3><i class="fas fa-history"></i> Resume History</h3>
+                <div class="history-grid" id="resumeHistoryList"></div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="preview-section" id="resumePreviewSection" style="display:none;">
+                <div class="preview-header">
+                    <h3><i class="fas fa-eye"></i> ATS Resume Preview</h3>
+                    <div class="preview-actions">
+                        <button class="btn btn-success" onclick="downloadCurrentResume()">
+                            <i class="fas fa-download"></i> Download PDF
+                        </button>
+                        <button class="btn btn-secondary" onclick="closeResumePreview()">
+                            <i class="fas fa-times"></i> Close
+                        </button>
                     </div>
                 </div>
-                
-                <div class="ats-section">
-                    <h2>PROFESSIONAL SUMMARY</h2>
-                    <p id="atsSummary">Professional summary here...</p>
-                </div>
-
-                <div class="ats-section">
-                    <h2>WORK EXPERIENCE</h2>
-                    <div id="atsWorkExperience"></div>
-                </div>
-
-                <div class="ats-section">
-                    <h2>EDUCATION</h2>
-                    <div id="atsEducation"></div>
-                </div>
-
-                <div class="ats-section">
-                    <h2>SKILLS</h2>
-                    <p id="atsSkills"></p>
-                </div>
-
-                <div class="ats-section" id="atsCertificationsSection" style="display:none;">
-                    <h2>CERTIFICATIONS</h2>
-                    <p id="atsCertifications"></p>
-                </div>
+                <div id="resumePreviewContainer"></div>
             </div>
         </section>
 
-        <!-- PAGE: CV -->
+        <!-- CV PAGE -->
         <section id="cv" class="page-content generic-page">
-            <h2>Curriculum Vitae (CV)</h2>
+            <h2><i class="fas fa-id-card"></i> ATS CV Builder</h2>
             
-            <!-- Upload Section -->
             <div class="upload-section">
-                <h3><i class="fas fa-upload"></i> Upload Your CV</h3>
-                <p>Upload your existing CV (PDF or DOCX) to generate an ATS-optimized version</p>
+                <h3><i class="fas fa-cloud-upload-alt"></i> Upload Your CV</h3>
+                <p>Upload PDF or DOCX to automatically create an ATS-optimized CV</p>
                 <input type="file" id="cvUpload" accept=".pdf,.docx,.doc" class="file-input">
+                <label for="cvUpload" class="file-input-label">
+                    <i class="fas fa-file-import"></i> Choose File
+                </label>
                 <div id="cvUploadStatus" class="upload-status"></div>
             </div>
 
-            <!-- CV Builder Form -->
-            <div class="resume-builder" id="cvBuilder">
-                <h3><i class="fas fa-edit"></i> CV Information</h3>
+            <div class="toggle-section">
+                <button class="toggle-btn" onclick="toggleCVEditor()">
+                    <i class="fas fa-edit"></i> <span id="cvToggleText">Edit Manually</span>
+                </button>
+            </div>
+
+            <div class="resume-builder" id="cvEditor" style="display:none;">
+                <h3><i class="fas fa-user-edit"></i> CV Information</h3>
                 
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="cvName" placeholder="John Doe">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Full Name *</label>
+                        <input type="text" id="cvName" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label>Professional Title</label>
+                        <input type="text" id="cvTitle" placeholder="Senior Web Designer">
+                    </div>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label>Email</label>
+                        <label>Email *</label>
                         <input type="email" id="cvEmail" placeholder="john@email.com">
                     </div>
                     <div class="form-group">
@@ -221,129 +217,90 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Professional Title</label>
-                    <input type="text" id="cvTitle" placeholder="Web Designer">
+                    <label>Professional Summary</label>
+                    <textarea id="cvSummary" rows="3" placeholder="Accomplished professional with..."></textarea>
                 </div>
 
                 <div class="form-section">
-                    <h4>Professional Experience</h4>
-                    <div id="cvExperienceContainer">
-                        <div class="experience-item">
-                            <input type="text" class="cv-job-title" placeholder="Position">
-                            <input type="text" class="cv-company" placeholder="Organization">
-                            <div class="date-row">
-                                <input type="text" class="cv-date-start" placeholder="Start Date">
-                                <input type="text" class="cv-date-end" placeholder="End Date">
-                            </div>
-                            <textarea class="cv-job-desc" rows="2" placeholder="Detailed responsibilities and achievements..."></textarea>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-secondary" onclick="addCVExperience()">+ Add Position</button>
+                    <h4><i class="fas fa-briefcase"></i> Professional Experience</h4>
+                    <div id="cvExperienceContainer"></div>
+                    <button type="button" class="btn-secondary" onclick="addCVExperience()">
+                        <i class="fas fa-plus"></i> Add Position
+                    </button>
                 </div>
 
                 <div class="form-section">
-                    <h4>Education</h4>
-                    <div id="cvEducationContainer">
-                        <div class="education-item">
-                            <input type="text" class="cv-degree" placeholder="Degree">
-                            <input type="text" class="cv-school" placeholder="Institution">
-                            <input type="text" class="cv-edu-date" placeholder="Year">
-                            <textarea class="cv-edu-details" rows="1" placeholder="Thesis, honors, etc. (optional)"></textarea>
-                        </div>
-                    </div>
-                    <button type="button" class="btn-secondary" onclick="addCVEducation()">+ Add Education</button>
+                    <h4><i class="fas fa-graduation-cap"></i> Education</h4>
+                    <div id="cvEducationContainer"></div>
+                    <button type="button" class="btn-secondary" onclick="addCVEducation()">
+                        <i class="fas fa-plus"></i> Add Education
+                    </button>
                 </div>
 
                 <div class="form-section">
-                    <h4>Publications</h4>
+                    <h4><i class="fas fa-book"></i> Publications</h4>
                     <textarea id="cvPublications" rows="2" placeholder="List your publications..."></textarea>
                 </div>
 
                 <div class="form-section">
-                    <h4>Skills & Competencies</h4>
+                    <h4><i class="fas fa-tools"></i> Skills & Competencies</h4>
                     <textarea id="cvSkills" rows="2" placeholder="Technical and soft skills..."></textarea>
                 </div>
 
                 <div class="form-section">
-                    <h4>Languages</h4>
-                    <textarea id="cvLanguages" rows="1" placeholder="e.g., English (Native), Spanish (Fluent)"></textarea>
+                    <h4><i class="fas fa-language"></i> Languages</h4>
+                    <textarea id="cvLanguages" rows="1" placeholder="English (Native), Spanish (Fluent)"></textarea>
                 </div>
 
                 <div class="form-section">
-                    <h4>References</h4>
-                    <textarea id="cvReferences" rows="2" placeholder="Available upon request or list references..."></textarea>
+                    <h4><i class="fas fa-users"></i> References</h4>
+                    <textarea id="cvReferences" rows="2" placeholder="Available upon request"></textarea>
                 </div>
 
                 <div class="action-buttons">
-                    <button class="btn" onclick="generateATSCV()">
-                        <i class="fas fa-magic"></i> Generate ATS CV
-                    </button>
-                    <button class="btn btn-success" onclick="downloadATSCV()" id="downloadCVBtn" style="display:none;">
-                        <i class="fas fa-download"></i> Download PDF
+                    <button class="btn" onclick="saveAndGenerateCV()">
+                        <i class="fas fa-save"></i> Save & Generate ATS CV
                     </button>
                 </div>
             </div>
 
-            <!-- Hidden ATS CV Template -->
-            <div id="atsCVTemplate" class="ats-resume-template" style="display:none;">
-                <div class="ats-header">
-                    <h1 id="atsCVName">John Doe</h1>
-                    <p class="ats-title" id="atsCVTitle">Web Designer</p>
-                    <div class="ats-contact">
-                        <span id="atsCVEmail">john@email.com</span> | 
-                        <span id="atsCVPhone">+1 234 567 8900</span> | 
-                        <span id="atsCVLocation">New York, NY</span>
+            <div class="history-section" id="cvHistory">
+                <h3><i class="fas fa-history"></i> CV History</h3>
+                <div class="history-grid" id="cvHistoryList"></div>
+            </div>
+
+            <div class="preview-section" id="cvPreviewSection" style="display:none;">
+                <div class="preview-header">
+                    <h3><i class="fas fa-eye"></i> ATS CV Preview</h3>
+                    <div class="preview-actions">
+                        <button class="btn btn-success" onclick="downloadCurrentCV()">
+                            <i class="fas fa-download"></i> Download PDF
+                        </button>
+                        <button class="btn btn-secondary" onclick="closeCVPreview()">
+                            <i class="fas fa-times"></i> Close
+                        </button>
                     </div>
                 </div>
-                
-                <div class="ats-section">
-                    <h2>PROFESSIONAL EXPERIENCE</h2>
-                    <div id="atsCVExperience"></div>
-                </div>
-
-                <div class="ats-section">
-                    <h2>EDUCATION</h2>
-                    <div id="atsCVEducation"></div>
-                </div>
-
-                <div class="ats-section" id="atsPublicationsSection" style="display:none;">
-                    <h2>PUBLICATIONS</h2>
-                    <p id="atsPublications"></p>
-                </div>
-
-                <div class="ats-section">
-                    <h2>SKILLS & COMPETENCIES</h2>
-                    <p id="atsCVSkills"></p>
-                </div>
-
-                <div class="ats-section" id="atsLanguagesSection" style="display:none;">
-                    <h2>LANGUAGES</h2>
-                    <p id="atsCVLanguages"></p>
-                </div>
-
-                <div class="ats-section" id="atsReferencesSection" style="display:none;">
-                    <h2>REFERENCES</h2>
-                    <p id="atsCVReferences"></p>
-                </div>
+                <div id="cvPreviewContainer"></div>
             </div>
         </section>
 
-        <!-- PAGE: SKILLS -->
+        <!-- SKILLS PAGE -->
         <section id="skills" class="page-content generic-page">
             <h2>My Skills</h2>
             <p>HTML5, CSS3, JavaScript, React, Figma, Adobe XD.</p>
         </section>
 
-        <!-- PAGE: WORKS -->
+        <!-- WORKS PAGE -->
         <section id="works" class="page-content generic-page">
             <h2>My Works</h2>
-            <p>Here you would see a gallery of your portfolio items.</p>
+            <p>Portfolio gallery would appear here.</p>
         </section>
 
-        <!-- PAGE: CONTACT -->
+        <!-- CONTACT PAGE -->
         <section id="contact" class="page-content generic-page">
             <h2>Contact Me</h2>
-            <p>Feel free to reach out via email or phone for project inquiries.</p>
+            <p>Feel free to reach out for project inquiries.</p>
         </section>
 
     </div>
